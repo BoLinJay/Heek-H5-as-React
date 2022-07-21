@@ -14,7 +14,12 @@
       &::placeholder {
         color: #a5a6ab;
       }
+
+      &:focus-visible {
+        outline: none;
+      }
     }
+
     .extra {
       position: absolute;
       right: 0;
