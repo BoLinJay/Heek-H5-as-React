@@ -47,6 +47,10 @@ export default function Login() {
     isValid,
   } = formik;
 
+  // 发送验证码
+  const onExtraClick = () => {
+    console.log(123);
+  };
   return (
     <div className={styles.root}>
       <NavBar>登录</NavBar>
@@ -58,11 +62,13 @@ export default function Login() {
           <div className="input-item">
             <div className="input-box">
               <Input
+                type="tel"
                 name="account"
                 placeholder="请输入手机号"
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={account}
+                maxLength="11"
               ></Input>
               {touched.account && errors.account && (
                 <div className="validate">{errors.account}</div>
@@ -74,12 +80,15 @@ export default function Login() {
           <div className="input-item">
             <div className="input-box">
               <Input
+                type="tel"
                 name="code"
                 placeholder="请输入验证码"
                 onChange={handleChange}
                 onBlur={handleBlur}
+                onExtraClick={onExtraClick}
                 value={code}
                 extra="发送验证码"
+                maxLength="6"
               ></Input>
             </div>
             {touched.code && errors.code && (
