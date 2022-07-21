@@ -1,34 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "@/components/NavBar";
 import styles from "./index.module.scss";
 import Input from "@components/Input";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import classNames from "classnames";
+import { findCode, findToken } from "@@/src/store/action/login";
+import { Toast } from "antd-mobile";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 export default function Login() {
   // 表单验证
   /*   const validate = (values) => {
     const errors = {};
-    if (!values.account) {
-      errors.account = "请输入手机号";
+    if (!values.mobile) {
+      errors.mobile = "请输入手机号";
     }
     if (!values.code) {
       errors.code = "请输入验证码";
     }
     return errors;
   }; */
-
+  const history = useHistory();
   const formik = useFormik({
     initialValues: {
-      account: "",
+      mobile: "",
       code: "",
     },
-    onSubmit: () => {
-      console.log(formik.values);
+    // 登录按钮
+    onSubmit: async (values) => {
+      try {
+        console.log(values);
+        await dispatch(findToken(values));
+        history.push("/home");
+        Toast.show({
+          icon: "success",
+          content: "登录成功",
+        });
+      } catch (e) {
+        Toast.fail(e.response.data.message);
+      }
     },
     // yup表单验证方法
     validationSchema: Yup.object({
-      account: Yup.string()
+      mobile: Yup.string()
         .required("请输入手机号")
         .matches(/^1[3-9]\d{9}$/, "手机号格式错误"),
       code: Yup.string()
@@ -38,7 +53,7 @@ export default function Login() {
   });
 
   const {
-    values: { account, code },
+    values: { mobile, code },
     handleChange,
     handleSubmit,
     handleBlur,
@@ -48,8 +63,40 @@ export default function Login() {
   } = formik;
 
   // 发送验证码
-  const onExtraClick = () => {
-    console.log(123);
+  const dispatch = useDispatch();
+  const [time, setTime] = useState(0);
+
+  const sendSMSCode = async () => {
+    if (!/^1[3-9]\d{9}$/.test(mobile)) {
+      formik.setTouched({
+        mobile: true,
+      });
+      return;
+    }
+
+    try {
+      const mobile = formik.values.mobile;
+      await dispatch(findCode(mobile));
+      Toast.show({
+        icon: "success",
+        content: "获取验证码成功",
+      });
+      // 倒计时
+      setTime(5);
+      const timeId = setInterval(() => {
+        setTime((time) => {
+          if (time === 1) {
+            clearInterval(timeId);
+          }
+          return time - 1;
+        });
+      }, 1000);
+    } catch (error) {
+      Toast.show({
+        content: error.response.data.message,
+        maskClickable: false,
+      });
+    }
   };
   return (
     <div className={styles.root}>
@@ -63,15 +110,15 @@ export default function Login() {
             <div className="input-box">
               <Input
                 type="tel"
-                name="account"
+                name="mobile"
                 placeholder="请输入手机号"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={account}
+                value={mobile}
                 maxLength="11"
               ></Input>
-              {touched.account && errors.account && (
-                <div className="validate">{errors.account}</div>
+              {touched.mobile && errors.mobile && (
+                <div className="validate">{errors.mobile}</div>
               )}
             </div>
           </div>
@@ -85,9 +132,9 @@ export default function Login() {
                 placeholder="请输入验证码"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                onExtraClick={onExtraClick}
+                onExtraClick={time === 0 ? sendSMSCode : () => {}}
                 value={code}
-                extra="发送验证码"
+                extra={time === 0 ? "发送验证码" : `${time}s后发送验证码`}
                 maxLength="6"
               ></Input>
             </div>
