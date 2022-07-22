@@ -12,6 +12,13 @@
       background-color: #f7f8fa;
     }
 
+    .profile_img {
+      display: inline-block;
+      width: 30px;
+      height: 30pxx;
+      border-radius: 50%;
+    }
+
     .profile-list {
       .am-list-item {
         padding-left: 17px;
@@ -38,6 +45,7 @@
         padding-right: 13px;
         font-size: 14px;
         color: #3a3948;
+
         .avatar-wrapper {
           display: inline-block;
           height: 22.5px;
@@ -45,12 +53,14 @@
           border-radius: 50%;
           overflow: hidden;
           vertical-align: middle;
+          background-color: pink;
 
           img {
             display: block;
             object-fit: cover;
           }
         }
+
         .intro {
           color: #c8c9cc;
 
@@ -81,6 +91,7 @@
         overflow: auto;
       }
     }
+
     .drawer-list {
       .am-drawer-sidebar {
         height: 174px;
@@ -112,19 +123,23 @@
   .am-picker-popup-body {
     .am-picker-popup-header {
       background-size: 0;
+
       &::after {
         display: none !important;
       }
     }
   }
+
   .am-picker-popup-header-left {
     font-size: 14px;
     color: #969799;
   }
+
   .am-picker-popup-header-right {
     font-size: 14px;
     color: #fc6627;
   }
+
   .am-picker-col-indicator {
     // height: 48px;
   }
