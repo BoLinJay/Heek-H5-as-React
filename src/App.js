@@ -1,22 +1,26 @@
-import React, { Suspense } from 'react'
-import {  BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import Home from '@pages/Home'
-import Login from '@pages/Login'
+import React, { Suspense } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+const Layouts = React.lazy(() => import("@/layouts"));
+const Login = React.lazy(() => import("@pages/Login"));
 function App() {
-  return <Router>
+  return (
+    <Router>
       <div>
-        <Suspense fallback="<div>Lodding...</div>">
-            <Switch>
-              <Redirect exact from='/' to='/home'></Redirect>
-              <Route path='/home' component={Home}></Route>
-              <Route path='/login' component={Login}></Route>
-            </Switch>
+        <Suspense fallback="<div>loading...</div>">
+          <Switch>
+            <Redirect exact from="/" to="/home"></Redirect>
+            <Route path="/home" component={Layouts}></Route>
+            <Route path="/login" component={Login}></Route>
+          </Switch>
         </Suspense>
       </div>
-  </Router>
- 
-
- 
+    </Router>
+  );
 }
 
 export default App;

@@ -1,5 +1,6 @@
 import { Toast } from "antd-mobile";
 import axios from "axios";
+import { getToken } from "./auth";
 
 const www = axios.create({
   timeout: 1000,
@@ -10,6 +11,8 @@ const www = axios.create({
 www.interceptors.request.use(
   (config) => {
     //   请求前做些什么
+    const Cookie = getToken();
+    config.headers["Authorization"] = `Bearer ${Cookie} `;
     return config;
   },
   (error) => {

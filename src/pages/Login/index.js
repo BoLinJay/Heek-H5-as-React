@@ -24,8 +24,8 @@ export default function Login() {
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
-      mobile: "",
-      code: "",
+      mobile: "18888888888",
+      code: "246810",
     },
     // 登录按钮
     onSubmit: async (values) => {

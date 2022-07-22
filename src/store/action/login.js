@@ -24,7 +24,7 @@ export const findToken = (params) => {
     const token = tokenInfo.data.token;
     setToken(token);
     // 保存token到redux中
-    dispacth(saveToken(tokenInfo));
+    dispacth(saveToken(tokenInfo.data));
     console.log(token);
   };
 };
@@ -34,9 +34,9 @@ export const findToken = (params) => {
  * @param {*} tokens
  * @returns
  */
-export const saveToken = (tokenInfo) => {
+export const saveToken = (payload) => {
   return {
     type: "login/token",
-    payload: tokenInfo,
+    payload,
   };
 };

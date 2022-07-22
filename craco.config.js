@@ -20,26 +20,24 @@ module.exports = {
       },
     },
   },
-    webpack: {
-      // 路径别名
-      alias: {
-        "@@": pathResolve("."),
-        "@": pathResolve("src"),
-        "@assets": pathResolve("src/assets"),
-        "@common": pathResolve("src/common"),
-        "@components": pathResolve("src/components"),
-        "@hooks": pathResolve("src/hooks"),
-        "@pages": pathResolve("src/pages"),
-        "@store": pathResolve("src/store"),
-        "@utils": pathResolve("src/utils"),
-        "@scss": pathResolve("src/assets/styles"),
-        // 此处是一个示例，实际可根据各自需求配置
-      },
+  webpack: {
+    // 路径别名
+    alias: {
+      "@@": pathResolve("."),
+      "@": pathResolve("src"),
+      "@assets": pathResolve("src/assets"),
+      "@common": pathResolve("src/common"),
+      "@components": pathResolve("src/components"),
+      "@hooks": pathResolve("src/hooks"),
+      "@pages": pathResolve("src/pages"),
+      "@store": pathResolve("src/store"),
+      "@utils": pathResolve("src/utils"),
+      "@scss": pathResolve("src/assets/styles"),
+      // 此处是一个示例，实际可根据各自需求配置
     },
-    
-    babel: {
-      plugins: [
-        ["@babel/plugin-proposal-decorators", { legacy: true }],
-      ],
-    },
+  },
+
+  babel: {
+    plugins: [["@babel/plugin-proposal-decorators", { legacy: true }]],
+  },
 };
