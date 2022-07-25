@@ -3,7 +3,7 @@ const initialState = {
   refresh_token: "",
 };
 // 操作 Token 状态信息的 reducer 函数
-export default function (state = initialState, action) {
+export const login = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case "login/token":
@@ -11,7 +11,9 @@ export default function (state = initialState, action) {
         ...state,
         ...payload,
       };
+    case "login/clear":
+      return {};
     default:
       return state;
   }
-}
+};

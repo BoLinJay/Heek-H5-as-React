@@ -1,5 +1,5 @@
 import www from "@utils/request.js";
-import { setToken, getToken } from "@utils/auth";
+import { setToken, removeToken } from "@utils/auth";
 /**
  * 发送短信验证码
  * @param {string} mobile 手机号码
@@ -38,5 +38,23 @@ export const saveToken = (payload) => {
   return {
     type: "login/token",
     payload,
+  };
+};
+
+/**
+ * 退出登录，删除redux中的token信息和本地
+ */
+export const clearToken = () => {
+  return {
+    type: "login/clear",
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    // 删除redux
+    dispatch(clearToken());
+    //清空本地
+    removeToken();
   };
 };

@@ -8,19 +8,12 @@ import classNames from "classnames";
 import { findCode, findToken } from "@@/src/store/action/login";
 import { Toast } from "antd-mobile";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {
+  useHistory,
+  useLocation,
+} from "react-router-dom/cjs/react-router-dom.min";
 export default function Login() {
-  // 表单验证
-  /*   const validate = (values) => {
-    const errors = {};
-    if (!values.mobile) {
-      errors.mobile = "请输入手机号";
-    }
-    if (!values.code) {
-      errors.code = "请输入验证码";
-    }
-    return errors;
-  }; */
+  const location = useLocation();
   const history = useHistory();
   const formik = useFormik({
     initialValues: {
@@ -37,6 +30,12 @@ export default function Login() {
           icon: "success",
           content: "登录成功",
         });
+        const { state } = location;
+        if (state) {
+          history.replace("/");
+        } else {
+          history.replace(state.from);
+        }
       } catch (e) {
         Toast.fail(e.response.data.message);
       }

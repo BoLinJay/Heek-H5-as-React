@@ -3,7 +3,7 @@ import axios from "axios";
 import { getToken } from "./auth";
 
 const www = axios.create({
-  timeout: 1000,
+  timeout: 5000,
   baseURL: "http://geek.itheima.net/v1_0",
 });
 
