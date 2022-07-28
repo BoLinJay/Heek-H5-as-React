@@ -25,17 +25,18 @@ export default function Login() {
       try {
         console.log(values);
         await dispatch(findToken(values));
-        history.push("/home");
+        const { state } = location;
+        console.log(location);
+        // 判断location中是否有state数据
+        if (state) {
+          history.replace(state.from);
+        } else {
+          history.replace("/");
+        }
         Toast.show({
           icon: "success",
           content: "登录成功",
         });
-        const { state } = location;
-        if (state) {
-          history.replace("/");
-        } else {
-          history.replace(state.from);
-        }
       } catch (e) {
         Toast.fail(e.response.data.message);
       }

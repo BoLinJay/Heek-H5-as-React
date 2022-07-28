@@ -9,8 +9,6 @@ const Video = React.lazy(() => import("@pages/Video"));
 const Question = React.lazy(() => import("@pages/Question"));
 const Profile = React.lazy(() => import("@pages/Profile"));
 const Home = React.lazy(() => import("@pages/Home"));
-const ProfileEdit = React.lazy(() => import("@pages/Profile/Edit/index"));
-
 // 将 tab 按钮的数据放在一个数组中
 // - id 唯一性ID
 // - title 按钮显示的文本
@@ -38,7 +36,6 @@ export default function Layouts() {
           <Route path="/home/question" component={Question}></Route>
           <Route path="/home/video" component={Video}></Route>
           <AuthRoute path="/home/profile" component={Profile}></AuthRoute>
-          <AuthRoute path="/profile/edit" component={ProfileEdit}></AuthRoute>
         </Switch>
       </Suspense>
       {/* 区域二：按钮区域，会使用固定定位显示在页面底部 */}

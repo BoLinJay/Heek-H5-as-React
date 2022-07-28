@@ -1,8 +1,8 @@
 import Icon from "@/components/Icon";
 import { getUserInfo } from "@/store/action/profile";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory, Switch, Route } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styles from "./index.module.scss";
 
 const Profile = () => {

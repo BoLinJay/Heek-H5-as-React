@@ -20,12 +20,11 @@ export const findCode = (mobile) => {
 export const findToken = (params) => {
   return async (dispacth) => {
     const tokenInfo = await www("authorizations", "post", params);
-    // 保存到本地 Cookie
-    const token = tokenInfo.data.token;
-    setToken(token);
+    // 保存到本地
+    console.log(tokenInfo);
+    setToken(tokenInfo.data);
     // 保存token到redux中
     dispacth(saveToken(tokenInfo.data));
-    console.log(token);
   };
 };
 

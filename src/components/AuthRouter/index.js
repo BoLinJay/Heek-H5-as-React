@@ -1,5 +1,6 @@
 import { getToken } from "@/utils/auth";
 import { Redirect, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 
 /**
  * 鉴权路由组件
@@ -7,13 +8,13 @@ import { Redirect, Route } from "react-router-dom";
  * @param {Array} rest 其他属性
  */
 const AuthRoute = ({ component: Component, ...rest }) => {
+  const location = useLocation();
   return (
     <Route
       {...rest}
-      render={(props) => {
+      render={() => {
         // 如果有 token，则展示传入的组件
         if (getToken()) {
-          console.log(getToken());
           return <Component />;
         }
 
@@ -23,7 +24,7 @@ const AuthRoute = ({ component: Component, ...rest }) => {
             to={{
               pathname: "/login",
               state: {
-                from: props.location.pathname,
+                from: location.pathname,
               },
             }}
           />
