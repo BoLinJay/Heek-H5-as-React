@@ -1,15 +1,13 @@
-import Cookies from "js-cookie";
-
 const TokenKey = "heek-h5";
 
 export function getToken() {
-  return Cookies.get(TokenKey);
+  return JSON.parse(localStorage.getItem(TokenKey));
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token);
+  localStorage.setItem(TokenKey, JSON.stringify(token));
 }
 
 export function removeToken() {
-  return Cookies.remove(TokenKey);
+  return JSON.parse(localStorage.removeItem(TokenKey));
 }
